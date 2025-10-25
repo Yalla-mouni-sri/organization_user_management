@@ -1,46 +1,174 @@
-# Getting Started with Create React App
+# Organization & User Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web application for managing organizations and their users, built with Django REST Framework backend and React frontend.
 
-## Available Scripts
+## Tech Stack
 
-In the project directory, you can run:
+- **Backend**: Django 4.2.7 + Django REST Framework + PostgreSQL
+- **Frontend**: React 18 + TypeScript + Tailwind CSS
+- **Database**: PostgreSQL
 
-### `npm start`
+## Project Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+organization_management/
+├── backend/                 # Django backend
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── organizations/          # Django app
+│   ├── models.py
+│   ├── views.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── admin.py
+├── manage.py
+├── requirements.txt
+└── ER_DIAGRAM.md
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+frontend/                   # React frontend
+├── src/
+│   ├── components/
+│   │   ├── OrganizationList.tsx
+│   │   ├── UserList.tsx
+│   │   ├── OrganizationForm.tsx
+│   │   └── UserForm.tsx
+│   ├── services/
+│   │   └── api.ts
+│   ├── App.tsx
+│   └── index.css
+├── package.json
+└── tailwind.config.js
+```
 
-### `npm test`
+## Setup Instructions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+- Python 3.8+
+- Node.js 16+
+- PostgreSQL 12+
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Install Python dependencies:**
+   ```bash
+   cd organization_management
+   pip install -r requirements.txt
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Setup PostgreSQL database:**
+   - Create a database named `organization_management`
+   - Update database credentials in `backend/settings.py` if needed
 
-### `npm run eject`
+3. **Run migrations:**
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. **Create superuser (optional):**
+   ```bash
+   python manage.py createsuperuser
+   ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. **Start Django server:**
+   ```bash
+   python manage.py runserver
+   ```
+   Backend will be available at `http://localhost:8000`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Frontend Setup
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. **Install Node.js dependencies:**
+   ```bash
+   cd frontend
+   npm install
+   ```
 
-## Learn More
+2. **Start React development server:**
+   ```bash
+   npm start
+   ```
+   Frontend will be available at `http://localhost:3000`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Features
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Organizations Management
+- ✅ Create, Read, Update, Delete organizations
+- ✅ View organization details with user count
+- ✅ Responsive table with search and pagination
+- ✅ Form validation and error handling
+
+### Users Management
+- ✅ Create, Read, Update, Delete users
+- ✅ Associate users with organizations
+- ✅ Email validation and uniqueness
+- ✅ Filter users by organization
+
+### API Features
+- ✅ RESTful API with Django REST Framework
+- ✅ CORS enabled for frontend communication
+- ✅ JSON serialization
+- ✅ Error handling and validation
+
+### UI Features
+- ✅ Modern, responsive design with Tailwind CSS
+- ✅ Modal forms for create/edit operations
+- ✅ Loading states and error handling
+- ✅ Tab-based navigation
+- ✅ Confirmation dialogs for delete operations
+
+## API Endpoints
+
+### Organizations
+- `GET /api/organizations/` - List all organizations
+- `GET /api/organizations/{id}/` - Get organization details
+- `POST /api/organizations/` - Create new organization
+- `PUT /api/organizations/{id}/` - Update organization
+- `DELETE /api/organizations/{id}/` - Delete organization
+- `GET /api/organizations/{id}/users/` - Get users of an organization
+
+### Users
+- `GET /api/users/` - List all users
+- `GET /api/users/{id}/` - Get user details
+- `POST /api/users/` - Create new user
+- `PUT /api/users/{id}/` - Update user
+- `DELETE /api/users/{id}/` - Delete user
+
+## Database Schema
+
+See `ER_DIAGRAM.md` for detailed database schema and relationships.
+
+## Testing
+
+### Backend Testing
+```bash
+cd organization_management
+python manage.py test
+```
+
+### Frontend Testing
+```bash
+cd frontend
+npm test
+```
+
+## Production Deployment
+
+1. **Backend**: Configure production database, static files, and security settings
+2. **Frontend**: Build production bundle with `npm run build`
+3. **Database**: Run migrations in production environment
+4. **Web Server**: Configure Nginx/Apache for serving static files and proxying API requests
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
